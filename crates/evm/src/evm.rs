@@ -192,6 +192,20 @@ pub trait Evm {
 
     /// Provides mutable references to the database, inspector and precompiles.
     fn components_mut(&mut self) -> (&mut Self::DB, &mut Self::Inspector, &mut Self::Precompiles);
+
+    /// Configure Soul Gas Token (SGT) settings for OP Stack chains.
+    ///
+    /// This method allows OP Stack EVM implementations to configure SGT behavior
+    /// after the EVM is created but before transaction execution.
+    /// The default implementation is a no-op, which is appropriate for standard EVMs.
+    ///
+    /// # Arguments
+    /// * `enabled` - Whether SGT is enabled for this chain
+    /// * `is_native_backed` - Whether SGT is backed by native token
+    #[allow(unused_variables)]
+    fn configure_sgt(&mut self, enabled: bool, is_native_backed: bool) {
+        // No-op by default - OP Stack EVMs can override this
+    }
 }
 
 /// An extension trait for [`Evm`] providing additional functionality.
